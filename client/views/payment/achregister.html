@@ -1,9 +1,9 @@
-   <template name="ccregister">
+   <template name="achregister">
      <div>
-    <form action="/charge" method="post" id="payment-form">
+    <form action="/charge" method="post" id="ach_payment-form">
         <div class="form-row">
           <label for="card-element">
-            Add Credit or debit card
+            Add Bank Account
           </label>
           <div id="card-element">
             <!-- A Stripe Element will be inserted here. -->
@@ -13,8 +13,7 @@
           <div id="card-errors" role="alert" style="color:red"></div>
         </div>
       
-        <button type="button" onclick="CancelAdd('div_ccregister')">Cancel</button>&nbsp;<button>Add</button>
+        <button type="button" onclick="CancelAdd('div_achregister')">Cancel</button>&nbsp;<button>Add</button>
       </form>
       </div>
-
 </template>
