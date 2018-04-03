@@ -1,20 +1,39 @@
-   <template name="ccregister">
-     <div>
-    <form action="/charge" method="post" id="payment-form">
-        <div class="form-row">
-          <label for="card-element">
-            Add Credit or debit card
-          </label>
-          <div id="card-element">
-            <!-- A Stripe Element will be inserted here. -->
-          </div>
-      
-          <!-- Used to display Element errors. -->
-          <div id="card-errors" role="alert" style="color:red"></div>
-        </div>
-      
-        <button type="button" onclick="CancelAdd('div_ccregister')">Cancel</button>&nbsp;<button>Add</button>
-      </form>
+<template name="ccregister">
+  <div id="credit_card" style="width:600px;height:300px;display: table-cell;background-color:moccasin;font-family: 'Courier New', Courier, monospace;padding-top: 10px; padding-right: 10px;padding-bottom: 10px;padding-left: 10px;">
+    <div>
+      <h1>Credit Cards</h1>
+      <div>
+        <a href="#" onclick="ToggleShow('div_ccregister')">
+          <span id="addnew_div_ccregister">Add New</span>
+        </a>
       </div>
-
+      <div id="div_ccregister" style="display:none">
+        <div>
+          <form action="/charge" method="post" id="payment-form">
+            <div class="form-row">
+              <label for="card-element">
+                Add Credit or debit card
+              </label>
+              <div id="card-element">
+                <!-- A Stripe Element will be inserted here. -->
+              </div>
+              <!-- Used to display Element errors. -->
+              <div id="card-errors" role="alert" style="color:red"></div>
+            </div>
+            <button type="button" onclick="CancelAdd('div_ccregister')">Cancel</button>&nbsp;
+            <button>Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <br>{{#each payment_account}} {{>cclist}} {{/each}}
+  </div>
+</template>
+<template name="cclist">
+  <div id="1" style="display: table-row; width:100%">
+      <a href="#" style="text-decoration: none">
+          <div style="display: table-cell;">{{name}}&nbsp;</div>
+          <div style="display: table-cell;">{{account_details.last4}}</div>
+      </a>
+  </div>
 </template>

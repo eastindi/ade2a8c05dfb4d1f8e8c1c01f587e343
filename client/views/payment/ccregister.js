@@ -15,6 +15,14 @@ var style = {
     },
   },
 };
+import { payment_accounts } from '../../../imports/api/payment_account.js';
+Template.ccregister.helpers({
+    payment_account()
+    {
+        return payment_accounts.find({});
+    },
+});
+
 Template.ccregister.onRendered(function () {
   var stripe = Stripe('pk_test_TJFaB69TR2WVrffSYUegAFUY');
   var elements = stripe.elements();

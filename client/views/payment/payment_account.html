@@ -3,82 +3,37 @@
         <h1>Payment Source</h1>
     </div>
     <div style="display: table-row; width:100%">
-        <div id="credit_card" style="width:600px;height:300px;display: table-cell;background-color:moccasin;font-family: 'Courier New', Courier, monospace;padding-top: 10px; padding-right: 10px;padding-bottom: 10px;padding-left: 10px;">
-            <div>
-
-                <h1>Credit Cards</h1>
-                <div>
-                    <a href="#" onclick="ToggleShow('div_ccregister')">
-                        <span id="addnew_div_ccregister">Add New</span>
-                    </a>
-                </div>
-                <div id="div_ccregister" style="display:none">{{> ccregister}}</div>
-            </div>
-            <br>{{#each payment_account}} {{>cclist}} {{/each}}
-        </div>
-        <div style="display: table-cell;width:10px;"></div>
-        <div id="bank_acct" style="width:600px;height:300px;display: table-cell;background-color: moccasin;font-family: 'Courier New', Courier, monospace;padding-top: 10px; padding-right: 10px;padding-bottom: 10px;padding-left: 10px;">
-            <div>
-                <h1>Bank Accounts</h1>
-                <div>
-                    <a href="#" onclick="ToggleShow('div_achregister')">
-                        <span id="addnew_div_achregister">Add New</span>
-                    </a>
-                </div>
-                <div id="div_achregister" style="display:none">{{> achregister}}</div>
-            </div>
-            <br>
-            <div id="1" style="display: table-row; width:100%">
-                <a href="#" style="text-decoration: none">
-                    <div style="display: table-cell;">Bank of America Savings&nbsp;</div>
-                    <div style="display: table-cell;">6454</div>
-                </a>
-            </div>
-            <div id="1" style="display: table-row; width:100%">
-                <a href="#" style="text-decoration: none">
-                    <div style="display: table-cell;">Wellsfargo Checking&nbsp;</div>
-                    <div style="display: table-cell;">9852</div>
-                </a>
-            </div>
-        </div>
+        {{>ccregister}}&nbsp;
+         {{>achregister}}
     </div>
-    <br>
+  
     <div>
         <h1>Payment Log</h1>
     </div>
+    <script>
+        function ToggleShow(divname) {
+            var x = document.getElementById(divname),
+                y = document.getElementById('addnew_' + divname);
 
-<script>
-    function ToggleShow(divname) {
-        var x = document.getElementById(divname),
-            y = document.getElementById('addnew_' + divname);
-
-        if (x.style.display === "none") {
-            x.style.display = "block";
-            y.style.display = "none";
-        } else {
-            x.style.display = "none";
-            y.style.display = "block";
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                y.style.display = "none";
+            } else {
+                x.style.display = "none";
+                y.style.display = "block";
+            }
         }
-    }
 
-    function CancelAdd(divname) {
-        var x = document.getElementById(divname),
-            y = document.getElementById('addnew_' + divname);
-        if (x.style.display === "none") {
-            x.style.display = "block";
-            y.style.display = "none";
-        } else {
-            x.style.display = "none";
-            y.style.display = "block";
+        function CancelAdd(divname) {
+            var x = document.getElementById(divname),
+                y = document.getElementById('addnew_' + divname);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                y.style.display = "none";
+            } else {
+                x.style.display = "none";
+                y.style.display = "block";
+            }
         }
-    }
-</script>
-</template>
-<template name="cclist">
-    <div id="1" style="display: table-row; width:100%">
-        <a href="#" style="text-decoration: none">
-            <div style="display: table-cell;">{{name}}&nbsp;</div>
-            <div style="display: table-cell;">{{account_details.last4}}</div>
-        </a>
-    </div>
+    </script>
 </template>
