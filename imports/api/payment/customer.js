@@ -1,28 +1,37 @@
 import {
     Mongo
 } from 'meteor/mongo';
+import { settings } from 'cluster';
 const stripe = require('stripe')(
-    "sk_test_yQ80NT6scrcZ6Elz4a9bR9fG"
+    Meteor.settings.private.stripe
 );
 export const customer = new Mongo.Collection('customer');
 
 
 Meteor.methods({
     createStripeCustomer(customer_id, callback) {
+        //todo:except for customer_id, hardcoded values, modify to set 
+        metadata = {
+            "source_ip":"10.10.10.100",
+            "device_type":"mobile",
+            "app_name":"product_name"
+        };
         var c = customer.findOne({
-            "customer_id": customer_id
+            "customer_id": customer_id, external_Customer_id: null
         });
         if (c) {
-            var oCust = {
+            
+                metadata.customer_id = c.customer_id;
+                var oCust = {
                 "description": c.first_name + ' ' + c.last_name,
-                "metadata": {
-                    "customer_id": c.customer_id
-                }
+                "metadata": metadata
             };
             stripe.customers.create(oCust).then(result => {
                 customer.update({customer_id : customer_id},{$set:{external_Customer_id : result.id}});
+                //todo: stripe does extensive loggin, if custome logging required add here
                 console.log(result);
             }).catch(err => {
+                //todo: stripe does extensive loggin, if custome logging required add here
                 console.log(err);
             });
         }
