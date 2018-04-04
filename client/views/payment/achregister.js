@@ -16,7 +16,7 @@ var style = {
   },
 };
 Template.achregister.onRendered(function () {
-  var stripe = Stripe('pk_test_TJFaB69TR2WVrffSYUegAFUY');
+  var stripe = Stripe(Meteor.settings.private.stripe);
   var elements = stripe.elements();
   // Create an instance of the card Element.
   var card = elements.create('card', {
