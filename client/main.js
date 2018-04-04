@@ -11,7 +11,6 @@ import { error } from 'util';
 
 Template.customer_create.events({
     'click #btn_customer_create': function () {
-    var r = Meteor.call('createStripeCustomer', document.getElementById("opt_customer").value);
-    console.log(r);
+    Meteor.call('createStripeCustomer', document.getElementById("opt_customer").value);
     }
 });

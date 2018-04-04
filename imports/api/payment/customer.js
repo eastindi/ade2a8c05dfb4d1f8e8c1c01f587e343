@@ -20,6 +20,7 @@ Meteor.methods({
                 }
             };
             stripe.customers.create(oCust).then(result => {
+                customer.update({customer_id : customer_id},{$set:{external_Customer_id : result.id}});
                 console.log(result);
             }).catch(err => {
                 console.log(err);
