@@ -15,7 +15,7 @@ var style = {
     },
   },
 };
-import { payment_accounts } from '../../../imports/api/payment_account.js';
+import { payment_accounts } from '../../../imports/api/payment/account.js';
 Template.ccregister.helpers({
     payment_account()
     {
@@ -45,7 +45,6 @@ Template.ccregister.onRendered(function () {
   var form = document.getElementById('payment-form');
   form.addEventListener('submit', function (event) {
     event.preventDefault();
-
     stripe.createToken(card).then(function (result) {
       if (result.error) {
         // Inform the customer that there was an error.

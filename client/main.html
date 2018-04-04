@@ -4,16 +4,24 @@
   <script src="https://js.stripe.com/v3/"></script>
 </head>
 
-<body >
+<body>
   <div style="font-family: 'Courier New', Courier, monospace;">
-  <h1 style="text-align:center; font-family: 'Courier New', Courier, monospace;">DM Application</h1>
-  <div style="position:absolute;top:10px;right:10px;">Logged in:
-    <select>
-      <option value="c958ebcb0b0d4af0baec6c8e3bf87d6b" selected>Robert Hou</option>
-      <option value="13fc477cae0749908718e6f8cd70767e">Johnson Wells</option>
-    </select>
+    <h1 style="text-align:center; font-family: 'Courier New', Courier, monospace;">DM Application</h1>
+    <div style="position:absolute;top:10px;right:10px;">Logged in:
+      <select id="opt_customer">
+        <option value="c958ebcb0b0d4af0baec6c8e3bf87d6b" selected>Robert Hou</option>
+        <option value="13fc477cae0749908718e6f8cd70767e">Johnson Wells</option>
+      </select>
+    </div>
+    <br>
+    <div style="display: table-row; width:100%">
+      <div>{{> payment_account}}</div>
+      {{>customer_create}}
+    </div>
   </div>
-  <br>
-  <div>{{> payment_account}}</div>
-</div>
 </body>
+<template name="customer_create">
+  <div>
+    <button type="button" id="btn_customer_create">Create Stripe Customer</button>
+  </div>
+</template>

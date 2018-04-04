@@ -1,11 +1,18 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import {
+    Template
+} from 'meteor/templating';
+import {
+    ReactiveVar
+} from 'meteor/reactive-var';
 
 import './main.html';
 import './views/payment/payment_account.js';
-// Template.hello.onCreated(function helloOnCreated() {
-//   // counter starts at 0
-//   this.counter = new ReactiveVar(0);
+
+// Template.body.helpers({
+//     customer_create() {
+//         var cid = document.getElementById("opt_customer").value;
+//         alert(cid);
+//    }
 // });
 
 // Template.hello.helpers({
@@ -14,9 +21,9 @@ import './views/payment/payment_account.js';
 //   },
 // });
 
-// Template.hello.events({
-//   'click button'(event, instance) {
-//     // increment the counter when button is clicked
-//     instance.counter.set(instance.counter.get() + 1);
-//   },
-// });
+Template.customer_create.events({
+    'click #btn_customer_create': function () {
+        var cust = require('../imports/api/payment/customer.js');
+        var c = cust.create(document.getElementById("opt_customer").value);
+    }
+});
