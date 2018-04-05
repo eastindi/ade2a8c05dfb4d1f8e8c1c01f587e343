@@ -1,6 +1,6 @@
 var sec = require("./security");
 
-function get(_d, _c, _q, cb) {
+function get(dbname, collection, query, callback) {
     cb = cb || {};
     sec.connect(db => {
         var dbo = db.db(_d);

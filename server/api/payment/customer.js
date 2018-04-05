@@ -5,7 +5,6 @@ import { settings } from 'cluster';
 const stripe = require('stripe')(
     Meteor.settings.private.stripe
 );
-export const customer = new Mongo.Collection('customer');
 
 
 Meteor.methods({
@@ -27,7 +26,7 @@ Meteor.methods({
                 "metadata": metadata
             };
             stripe.customers.create(oCust).then(result => {
-                customer.update({customer_id : customer_id},{$set:{external_Customer_id : result.id}});
+                customer.update({customer_id : customer_id},{$set:{external_customer_id : result.id}});
                 //todo: stripe does extensive loggin, if custome logging required add here
                 console.log(result);
             }).catch(err => {

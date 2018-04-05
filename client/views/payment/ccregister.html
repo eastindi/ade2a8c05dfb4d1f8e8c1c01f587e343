@@ -14,6 +14,7 @@
               <label for="card-element">
                 Add Credit or debit card
               </label>
+              <div><input type="text" id="friendlyname" placeholder="Friendly Name"></div>
               <div id="card-element">
                 <!-- A Stripe Element will be inserted here. -->
               </div>
@@ -27,6 +28,7 @@
       </div>
     </div>
     <br>{{#each payment_account}} {{>cclist}} {{/each}}
+    <div>$<input type="text" id="payment_amount" placeholder="0.00"></div>
   </div>
 </template>
 <template name="cclist">
@@ -34,6 +36,7 @@
       <a href="#" style="text-decoration: none">
           <div style="display: table-cell;">{{name}}&nbsp;</div>
           <div style="display: table-cell;">{{account_details.last4}}</div>
+          <div style="display: table-cell;"><button class="btnPayWithCC btn btn-default" value={{external_account_id}}>Pay with this</button></div>
       </a>
   </div>
 </template>

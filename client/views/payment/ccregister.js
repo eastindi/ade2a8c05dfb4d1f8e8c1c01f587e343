@@ -1,35 +1,34 @@
-var style = {
-  base: {
-    color: '#303238',
-    fontSize: '16px',
-    color: "#32325d",
-    fontSmoothing: 'antialiased',
-    '::placeholder': {
-      color: '#ccc',
-    },
-  },
-  invalid: {
-    color: '#e5424d',
-    ':focus': {
-      color: '#303238',
-    },
-  },
-};
-import { payment_accounts } from '../../../imports/api/payment/account.js';
+export const payment_accounts = new Mongo.Collection('payment_accounts');
+
 Template.ccregister.helpers({
-    payment_account()
-    {
-        return payment_accounts.find({});
-    },
+  payment_account() {
+    return payment_accounts.find({
+      "payment_account_type": "cc"
+    });
+  }
 });
 
+Template.cclist.events({
+  "click .btnPayWithCC": function (event) {
+    var amount = parseFloat(document.getElementById('payment_amount').value).toFixed(2);
+    if (amount > 0) {
+      var payEvent = {
+        "token": event.target.value,
+        "customer_id":document.getElementById('opt_customer').value,
+        "amount": amount*100,
+        "desc": "Introduction Fee"
+      };
+      console.log(payEvent);
+      Meteor.call('payWithThisCC', payEvent);
+    }
+  }
+})
+
 Template.ccregister.onRendered(function () {
-  var stripe = Stripe(Meteor.settings.private.stripe);
+  var stripe = Stripe(Meteor.settings.public.stripe);
   var elements = stripe.elements();
   // Create an instance of the card Element.
-  var card = elements.create('card', {
-    style: style
-  });
+  var card = elements.create('card');
   // Add an instance of the card Element into the `card-element` <div>.
   card.mount('#card-element');
 
@@ -45,14 +44,21 @@ Template.ccregister.onRendered(function () {
   var form = document.getElementById('payment-form');
   form.addEventListener('submit', function (event) {
     event.preventDefault();
+
     stripe.createToken(card).then(function (result) {
       if (result.error) {
         // Inform the customer that there was an error.
         var errorElement = document.getElementById('card-errors');
         errorElement.textContent = result.error.message;
       } else {
-        // Send the token to your server.
-        stripeTokenHandler(result.token);
+        var source = {
+          type: "cc",
+          "friendlyName": document.getElementById("friendlyname").value,
+          token: result.token,
+          customer_id: document.getElementById("opt_customer").value
+        };
+        Meteor.call('addStripeSource', source);
+        ToggleShow('div_ccregister');
       }
     });
   });

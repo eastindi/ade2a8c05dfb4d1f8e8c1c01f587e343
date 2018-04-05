@@ -11,6 +11,7 @@
     "materialize-css": "^0.100.2",
     "meteor-node-stubs": "^0.3.2",
     "mongodb": "^3.0.5",
-    "stripe": "^5.7.0"
+    "stripe": "^5.7.0",
+    "uuid": "^3.2.1"
   }
 }
