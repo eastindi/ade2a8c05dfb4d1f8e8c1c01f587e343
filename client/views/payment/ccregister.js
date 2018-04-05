@@ -15,7 +15,7 @@ Template.cclist.events({
       var payEvent = {
         "token": event.target.value,
         "customer_id":document.getElementById('opt_customer').value,
-        "amount": amount*100,
+        "amount": Math.floor(amount*100),
         "desc": "Introduction Fee"
       };
       console.log(payEvent);
