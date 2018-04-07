@@ -52,9 +52,9 @@ Template.ccregister.onRendered(function () {
         errorElement.textContent = result.error.message;
       } else {
         var source = {
-          type: "cc",
-          "friendlyName": document.getElementById("friendlyname").value,
-          token: result.token,
+          type: "card",
+          friendly_name: document.getElementById("friendly_name").value,
+          token: result.token.id,
           customer_id: document.getElementById("opt_customer").value
         };
         Meteor.call('addStripeSource', source);

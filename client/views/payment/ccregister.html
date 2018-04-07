@@ -12,13 +12,11 @@
           <form action="/charge" method="post" id="payment-form">
             <div class="form-row">
               <label for="card-element">
-                Add Credit or debit card
+                <h3>Add Credit or debit card</h3>
               </label>
-              <div><input type="text" id="friendlyname" placeholder="Friendly Name"></div>
+              <div><input type="text" id="friendly_name" placeholder="Easy name to remember"></div>
               <div id="card-element">
-                <!-- A Stripe Element will be inserted here. -->
               </div>
-              <!-- Used to display Element errors. -->
               <div id="card-errors" role="alert" style="color:red"></div>
             </div>
             <button type="button" onclick="CancelAdd('div_ccregister')">Cancel</button>&nbsp;
