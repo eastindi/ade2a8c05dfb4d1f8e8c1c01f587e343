@@ -25,11 +25,11 @@
         </div>
       </div>
     </div>
-    <br>{{#each payment_account}} {{>cclist}} {{/each}}
-    <div>$<input type="text" id="payment_amount" placeholder="0.00"></div>
+    <br>{{#each card_accounts}} {{>card_list}} {{/each}}
+    
   </div>
 </template>
-<template name="cclist">
+<template name="card_list">
   <div id="1" style="display: table-row; width:100%">
       <a href="#" style="text-decoration: none">
           <div style="display: table-cell;">{{name}}&nbsp;</div>

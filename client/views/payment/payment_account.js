@@ -1,6 +1,8 @@
 import { Mongo } from 'meteor/mongo';
 import './payment_account.html';
 
+export const payment_accounts = new Mongo.Collection('payment_accounts');
+
 Template.payment_account.helpers({
     payment_account()
     {

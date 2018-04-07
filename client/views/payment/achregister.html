@@ -15,16 +15,7 @@
     </div>
     <br>
     <div id="1" style="display: table-row; width:100%">
-      <a href="#" style="text-decoration: none">
-        <div style="display: table-cell;">Bank of America Savings&nbsp;</div>
-        <div style="display: table-cell;">6454</div>
-      </a>
-    </div>
-    <div id="1" style="display: table-row; width:100%">
-      <a href="#" style="text-decoration: none">
-        <div style="display: table-cell;">Wellsfargo Checking&nbsp;</div>
-        <div style="display: table-cell;">9852</div>
-      </a>
+        {{#each bank_accounts}} {{>bank_account_list}} {{/each}}
     </div>
   </div>
 </template>
@@ -47,3 +38,13 @@
     <button type="button" id="btn_add_bank_account">Add</button>
   </form>             
 </template>
+
+<template name="bank_account_list">
+    <div id="1" style="display: table-row; width:100%">
+        <a href="#" style="text-decoration: none">
+            <div style="display: table-cell;">{{name}}&nbsp;</div>
+            <div style="display: table-cell;">{{account_details.last4}}</div>
+            <div style="display: table-cell;"><button class="btnPayWithCC btn btn-default" value={{external_account_id}}>Pay with this</button></div>
+        </a>
+    </div>
+  </template>

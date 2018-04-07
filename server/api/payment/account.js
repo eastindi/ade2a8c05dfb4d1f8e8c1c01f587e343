@@ -32,7 +32,7 @@ Meteor.methods({
                             "customer_id": cust.external_customer_id,
                             "payment_account_type": source.type,
                             "name": source.friendly_name,
-                            "external_account_id":resultSource.id,
+                            "external_account_id": resultSource.id,
                             "account_details": {
                                 "type": tsource.type === "card" ? resultSource.card.brand : resultSource.bank_name,
                                 "last4": tsource.type === "card" ? resultSource.card.last4 : resultSource.last4
@@ -42,15 +42,14 @@ Meteor.methods({
 
                         stripe.customers.createSource(cust.external_customer_id, {
                             source: resultSource.id
+                        }).then(resultCustomerUpdate => {
+                            payment_accounts.insert(newPaymentAccount);
                         }).catch(err => {
-                            console.log(err);
+                            throw new Error("Error attaching source to customer:" + err);
                         });
-                    }).then(resultCustomerUpdate => {
-                        payment_accounts.insert(newPaymentAccount);
-                        console.log(resultCustomerUpdate);
                     })
                     .catch(err => {
-                        console.log("Created source failed:" + err);
+                        throw new Error("Error creating new: " + err);
                     });
             }
         });

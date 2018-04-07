@@ -1,10 +1,15 @@
+import {payment_accounts} from './payment_account.js';
 const stripe = Stripe(Meteor.settings.public.stripe);
 
 Template.achregister.onRendered(function () {
   var stripe = Stripe(Meteor.settings.private.stripe);
-
 });
-
+Template.achregister.helpers({
+  bank_accounts() {
+    return payment_accounts.find({
+      "payment_account_type": "ach_debit"})
+  }
+});
 Template.bank_account_form.events({
   'input #txt_routing_number': function (event) {
     var displayError = document.getElementById('ach-errors');

@@ -1,14 +1,14 @@
-export const payment_accounts = new Mongo.Collection('payment_accounts');
+import {payment_accounts} from './payment_account.js';
 
 Template.ccregister.helpers({
-  payment_account() {
+  card_accounts() {
     return payment_accounts.find({
-      "payment_account_type": "cc"
+      "payment_account_type": "card"
     });
   }
 });
 
-Template.cclist.events({
+Template.card_list.events({
   "click .btnPayWithCC": function (event) {
     var amount = parseFloat(document.getElementById('payment_amount').value).toFixed(2);
     if (amount > 0) {
