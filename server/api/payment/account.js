@@ -30,7 +30,7 @@ Meteor.methods({
                         var uuid = require("uuid")();
                         newPaymentAccount = {
                             "payment_account_id": uuid,
-                            "customer_id": cust.external_customer_id,
+                            "customer_id": cust.customer_id,
                             "payment_account_type": source.type,
                             "name": source.friendly_name,
                             "external_account_id": resultSource.id,
@@ -65,7 +65,7 @@ Meteor.methods({
                         console.log(resultSource);
                         newPaymentAccount = {
                             "payment_account_id": uuid,
-                            "customer_id": cust.external_customer_id,
+                            "customer_id": cust.customer_id,
                             "payment_account_type": source.type,
                             "name": source.friendly_name,
                             "external_account_id": resultSource.id,

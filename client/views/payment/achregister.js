@@ -7,7 +7,7 @@ Template.achregister.onRendered(function () {
 Template.achregister.helpers({
   bank_accounts() {
     return payment_accounts.find({
-      "payment_account_type": "ach_debit"});
+      "payment_account_type": "ach_debit","customer_id":Session.get("customer_id")});
   }
 });
 Template.bank_account_form.events({

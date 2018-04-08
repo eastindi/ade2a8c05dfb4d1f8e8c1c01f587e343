@@ -3,7 +3,7 @@ import {payment_accounts} from './payment_account.js';
 Template.ccregister.helpers({
   card_accounts() {
     return payment_accounts.find({
-      "payment_account_type": "card"
+      "payment_account_type": "card", "customer_id":Session.get("customer_id")
     });
   }
 });
@@ -15,6 +15,7 @@ Template.card_list.events({
       var payEvent = {
         "token": event.target.value,
         "customer_id":document.getElementById('opt_customer').value,
+        "source":event.currentTarget.value,
         "amount": Math.floor(amount*100),
         "desc": "Introduction Fee"
       };
