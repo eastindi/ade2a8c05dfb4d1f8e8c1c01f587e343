@@ -28,7 +28,7 @@
         <h3>Add Bank Account</h3>
       </label>
       <div id="bankaccount-element">
-        <div><input type="text" id="friendly_name" placeholder="Easy name to remember"></div>
+        <div><input type="text" id="bank_friendly_name" placeholder="Easy name to remember"></div>
         <div><input type="text" id="txt_routing_number" placeholder="Routing Number"></div>        
         <div><input type="text" id="txt_bank_account_number" placeholder="Account Number"></div>
       </div>
@@ -44,7 +44,8 @@
         <a href="#" style="text-decoration: none">
             <div style="display: table-cell;">{{name}}&nbsp;</div>
             <div style="display: table-cell;">{{account_details.last4}}</div>
-            <div style="display: table-cell;"><button class="btnPayWithCC btn btn-default" value={{external_account_id}}>Pay with this</button></div>
+            <div style="display: table-cell;"><button class="btn_charge_bank_account btn btn-default" value={{external_account_id}}>Pay</button></div>
+            <div style="display: table-cell;"><button class="btn_verify_bank_account btn btn-default" value={{external_account_id}}>Verify</button></div>
         </a>
     </div>
   </template>

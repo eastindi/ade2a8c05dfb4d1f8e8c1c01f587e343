@@ -53,7 +53,7 @@ Template.ccregister.onRendered(function () {
       } else {
         var source = {
           type: "card",
-          friendly_name: document.getElementById("friendly_name").value,
+          friendly_name: document.getElementById("card_friendly_name").value,
           token: result.token.id,
           customer_id: document.getElementById("opt_customer").value
         };

@@ -7,7 +7,7 @@ Template.achregister.onRendered(function () {
 Template.achregister.helpers({
   bank_accounts() {
     return payment_accounts.find({
-      "payment_account_type": "ach_debit"})
+      "payment_account_type": "ach_debit"});
   }
 });
 Template.bank_account_form.events({
@@ -28,6 +28,7 @@ Template.bank_account_form.events({
     }
   },
   'click #btn_add_bank_account': function (event) {
+
     var displayError = document.getElementById('ach-errors');
     if (isNaN(event.currentTarget.value)) {
       displayError.textContent = "Please enter valid bank account number";
@@ -44,16 +45,39 @@ Template.bank_account_form.events({
       .then(result => {
         var source = {
           customer_id: document.getElementById('opt_customer').value,
-          friendly_name: document.getElementById("friendly_name").value,
+          friendly_name: document.getElementById("bank_friendly_name").value,
           type: "ach_debit",
           token: result.token.id
         };
-        Meteor.call('addStripeSource', source);
+        Meteor.call('addStripeBankAccount', source);
+        ToggleShow('div_achregister');
       }).catch(err => {
         console.log(err);
         //throw err;
       });
     }
+  }  
+})
+
+Template.bank_account_list.events({
+  'click .btn_verify_bank_account': function (event) {
+    var verifyparam = {
+      external_account_id:event.currentTarget.value,
+      customer_id: document.getElementById('opt_customer').value,
+      amounts: [32,45]
+    };
+    Meteor.call('verifyBankAccount', verifyparam);
+  },
+  'click .btn_charge_bank_account': function (event) {
+    var amount = parseFloat(document.getElementById('payment_amount').value).toFixed(2);
+    var charge = {
+      external_account_id:event.currentTarget.value,
+      customer_id: document.getElementById('opt_customer').value,
+      amount: Math.floor(amount*100),
+      desc:"Deal Commission"
+    };
+    console.log(charge);
+    Meteor.call('payWithBankAccount', charge);
   }
 })
 
