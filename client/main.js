@@ -21,3 +21,7 @@ Template.login.events({
         Session.set("customer_id", document.getElementById("opt_customer").value);
     }
 });
+
+Template.login.onRendered(function () {
+       Session.set("customer_id", document.getElementById("opt_customer").value);
+});

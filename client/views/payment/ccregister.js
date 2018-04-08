@@ -15,7 +15,7 @@ Template.card_list.events({
       var payEvent = {
         "token": event.target.value,
         "customer_id":document.getElementById('opt_customer').value,
-        "source":event.currentTarget.value,
+        "external_account_id":event.currentTarget.value,
         "amount": Math.floor(amount*100),
         "desc": "Introduction Fee"
       };

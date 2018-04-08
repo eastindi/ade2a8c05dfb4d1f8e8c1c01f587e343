@@ -1,0 +1,40 @@
+<Template name="payment_log">
+    <Table border=1>
+            <tr>
+                    <td>
+                        <label>Source</label>
+                    </td>
+                    <td>
+                        <label>Initiiator</label>
+                    </td>
+                    <td>
+                        <label>Request</label>
+                    </td>
+                    <td>
+                        <label>Response</label>
+                    </td>
+                    <td>
+                        <label>Date</label>
+                    </td>
+                    </tr>
+                    {{#each payment_log}}        
+        <tr>
+            <td>
+                <label>{{type}}</label>
+            </td>
+            <td>
+                <label>{{initiator}}</label>
+            </td>
+            <td>
+                <label>{{request}}</label>
+            </td>
+            <td>
+                <label>{{response}}</label>
+            </td>
+            <td>
+                <label>{{rate}}</label>
+            </td>
+        </tr>
+        {{/each}}    
+    </Table>
+</Template>
