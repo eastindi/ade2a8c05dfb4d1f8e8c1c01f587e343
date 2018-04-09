@@ -19,8 +19,12 @@ Template.card_list.events({
         "amount": Math.floor(amount*100),
         "desc": "Introduction Fee"
       };
-      console.log(payEvent);
-      Meteor.call('payWithThisCC', payEvent);
+     Meteor.call('payWithThisCC', payEvent, (err, result) => {
+      if(err)
+        document.getElementById('ccPayResult').innerHTML = "Failed";
+      else
+        document.getElementById('ccPayResult').innerHTML = "Processed";
+     });
     }
   }
 })

@@ -1,23 +1,23 @@
 <Template name="payment_log">
     <Table border=1>
-            <tr>
-                    <td>
-                        <label>Source</label>
-                    </td>
-                    <td>
-                        <label>Initiiator</label>
-                    </td>
-                    <td>
-                        <label>Request</label>
-                    </td>
-                    <td>
-                        <label>Response</label>
-                    </td>
-                    <td>
-                        <label>Date</label>
-                    </td>
-                    </tr>
-                    {{#each payment_log}}        
+        <tr>
+            <td>
+                <label>Source</label>
+            </td>
+            <td>
+                <label>Initiiator</label>
+            </td>
+            <td>
+                <label>Amount</label>
+            </td>
+            <td>
+                <label>Response</label>
+            </td>
+            <td>
+                <label>Date</label>
+            </td>
+        </tr>
+        {{#each payment_log}}
         <tr>
             <td>
                 <label>{{type}}</label>
@@ -26,15 +26,15 @@
                 <label>{{initiator}}</label>
             </td>
             <td>
-                <label>{{request}}</label>
+                <label>{{amount request.amount}}</label>
             </td>
             <td>
-                <label>{{response}}</label>
+                <label>{{response.status}}</label>
             </td>
             <td>
-                <label>{{rate}}</label>
+                <label>{{createddt created}}</label>
             </td>
         </tr>
-        {{/each}}    
+        {{/each}}
     </Table>
 </Template>

@@ -8,50 +8,62 @@ import {
     settings
 } from 'cluster';
 
-import { Session } from 'meteor/session';
+import {
+    Session
+} from 'meteor/session';
 export const payment_log = new Mongo.Collection('payment_log');
 
 const stripe = require('stripe')(
     Meteor.settings.private.stripe
 );
 
+// const stripe = require('strip-sync')(
+//     Meteor.settings.private.stripe
+// );
 Meteor.methods({
-    payWithThisCC(charge, callback) {
+    payWithThisCC(charge) {
         var this_customer = customer.findOne({
             customer_id: charge.customer_id
         });
-        charge = {
+        var chargeparam = {
             amount: charge.amount,
             currency: "usd",
             customer: this_customer.external_customer_id,
             source: charge.external_account_id,
             description: charge.desc,
         };
-        stripe.charges.create(charge).then(chargeResult => {
-                logpayment(charge, chargeResult, "creditcharge", charge.initiator, 1);
+        return stripe.charges.create(chargeparam).then(chargeResult => {
+                chargeparam.customer_id = charge.customer_id;
+                logpayment(chargeparam, chargeResult, "creditcharge", charge.initiator, 1);
+                return null, chargeResult;
             })
             .catch(err => {
-                logpayment(charge, err, "creditcharge", charge.initiator, 0);
+                console.log(err);
+                logpayment(chargeparam, err, "creditcharge", charge.initiator, 0);
+                return err, null;
             });
     },
 
-    payWithBankAccount(charge, callback) {
+    payWithBankAccount(charge) {
         var this_customer = customer.findOne({
             customer_id: charge.customer_id
         });
-        charge = {
+        var chargeparam = {
             amount: charge.amount,
             currency: "usd",
             customer: this_customer.external_customer_id,
             source: charge.external_account_id,
             description: charge.desc
         };
-        console.log(charge);
-        stripe.charges.create(charge).then(chargeResult => {
-                logpayment(charge, chargeResult, "banktransfer", charge.initiator, 1);
+        return stripe.charges.create(chargeparam).then(chargeResult => {
+            chargeparam.customer_id = charge.customer_id;
+                logpayment(chargeparam, chargeResult, "banktransfer", charge.initiator, 1);
+                return null,
+                chargeResult;
             })
             .catch(err => {
-                logpayment(charge, err, "banktransfer", charge.initiator, 0);
+                logpayment(chargeparam, err, "banktransfer", charge.initiator, 0);
+                return err;
             });
     },
 
@@ -72,14 +84,14 @@ Meteor.methods({
 });
 
 function logpayment(request, response, type, initiator, status) {
-    payment_log.insert({
+    return payment_log.insert({
         customer_id: request.customer_id,
         processor: "stripe",
-        initiator: initiator||"capxweb",
+        initiator: initiator || "capxweb",
         type: type,
         request: request,
         response: response,
-        status:status,
+        status: status,
         created: new Date()
     });
 }

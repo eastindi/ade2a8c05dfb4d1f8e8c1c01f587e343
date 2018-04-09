@@ -1,4 +1,6 @@
-import {payment_accounts} from './payment_account.js';
+import {
+  payment_accounts
+} from './payment_account.js';
 const stripe = Stripe(Meteor.settings.public.stripe);
 
 Template.achregister.onRendered(function () {
@@ -7,7 +9,9 @@ Template.achregister.onRendered(function () {
 Template.achregister.helpers({
   bank_accounts() {
     return payment_accounts.find({
-      "payment_account_type": "ach_debit","customer_id":Session.get("customer_id")});
+      "payment_account_type": "ach_debit",
+      "customer_id": Session.get("customer_id")
+    });
   }
 });
 Template.bank_account_form.events({
@@ -42,42 +46,46 @@ Template.bank_account_form.events({
         account_holder_type: 'individual',
       };
       stripe.createToken('bank_account', tokenParam)
-      .then(result => {
-        var source = {
-          customer_id: document.getElementById('opt_customer').value,
-          friendly_name: document.getElementById("bank_friendly_name").value,
-          type: "ach_debit",
-          token: result.token.id
-        };
-        Meteor.call('addStripeBankAccount', source);
-        ToggleShow('div_achregister');
-      }).catch(err => {
-        console.log(err);
-        //throw err;
-      });
+        .then(result => {
+          var source = {
+            customer_id: document.getElementById('opt_customer').value,
+            friendly_name: document.getElementById("bank_friendly_name").value,
+            type: "ach_debit",
+            token: result.token.id
+          };
+          Meteor.call('addStripeBankAccount', source);
+          ToggleShow('div_achregister');
+        }).catch(err => {
+          console.log(err);
+          //throw err;
+        });
     }
-  }  
+  }
 })
 
 Template.bank_account_list.events({
   'click .btn_verify_bank_account': function (event) {
     var verifyparam = {
-      external_account_id:event.currentTarget.value,
+      external_account_id: event.currentTarget.value,
       customer_id: document.getElementById('opt_customer').value,
-      amounts: [32,45]
+      amounts: [32, 45]
     };
     Meteor.call('verifyBankAccount', verifyparam);
   },
   'click .btn_charge_bank_account': function (event) {
     var amount = parseFloat(document.getElementById('payment_amount').value).toFixed(2);
-    var charge = {
-      external_account_id:event.currentTarget.value,
+    var payEvent = {
+      external_account_id: event.currentTarget.value,
       customer_id: document.getElementById('opt_customer').value,
-      amount: Math.floor(amount*100),
-      desc:"Deal Commission"
+      amount: Math.floor(amount * 100),
+      desc: "Deal Commission"
     };
-    console.log(charge);
-    Meteor.call('payWithBankAccount', charge);
+    Meteor.call('payWithBankAccount', payEvent, (err, result) => {
+      if (err)
+        document.getElementById('achPayResult').innerHTML = "Failed";
+      else
+        document.getElementById('achPayResult').innerHTML = "Processed";
+    });
   }
 })
 
